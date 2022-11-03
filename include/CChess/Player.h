@@ -1,4 +1,5 @@
-
+#ifndef CCHESS_PLAYER_H
+#define CCHESS_PLAYER_H
 
 class Player {
 
@@ -6,3 +7,5 @@ class Player {
 
     std::string color;
 };
+
+#endif

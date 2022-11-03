@@ -2,11 +2,11 @@
 #include <vector>
 #include <array>
 
-#include <CChess/ChessBoard.h>
+#include <CChess/Board.h>
 #include <CChess/Player.h>
 
 
-// class ChessBoard; // contains pieces, board
+// class Board; // contains pieces, board
 // class Player;
 
 int main () {
@@ -97,7 +97,7 @@ int main () {
     
     */
 
-    ChessBoard board;
+    // Board board;
     Player white;
     Player black;
     std::array<Player,2> players = {white, black};
@@ -107,6 +107,7 @@ int main () {
 
     int playIndex = 0;
 
+    /* 
     while (noSurender && notCheckMate) {
 
         bool made_move = false;
@@ -125,6 +126,6 @@ int main () {
         notCheckMate = board.checkChessMate(); // king has no valid move
         
         playIndex = (playIndex + 1)%2;
-    }   
+    }   */
     
 }

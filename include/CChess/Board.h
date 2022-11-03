@@ -1,21 +1,19 @@
 #include <array>
 #include <optional>
 #include <memory>
-#include "ChessPiece.h"
+#include <iostream>
 
-struct Field {
-        ChessPiece piece;
-        bool isOccupied;
-};
+#include "Player.h"
+#include "Piece.h"
 
-class ChessBoard {
+class Board {
 
     public:
 
     bool gameMove(Player& player) {
 
         // 1. player chooses a piece on the board
-        std::optional result = std::make_optional<Field>({});
+        std::optional result = std::make_optional<Piece>({});
 
         while (true) {
 
@@ -26,20 +24,20 @@ class ChessBoard {
                 continue;
             }
 
-            auto field = result.value();
-            std::cout << "You have selected the chess piece: "<< field.piece.name << std::endl;
+            auto piece = result.value();
+            std::cout << "You have selected the chess piece: "<< piece.getName() << std::endl;
             
             
             // 2. player chooses destination field
-            if (moveToDestination(field)) {
+            if (moveToDestination()) {
                 break;
             }
         }
 
-
+        return true;
     }
 
-    std::optional<Field&> startField(Player& player) {
+    std::optional<Piece> startField(Player& player) {
         
         std::string start; // "4,5"
         std::cout << "input a field id" << std::endl;
@@ -54,35 +52,29 @@ class ChessBoard {
         }
 
         // check the board and get a pice
-        auto& field = board[i][j];
+        auto piece = board[i][j];
         
-        if (field.isOccupied) {
+        if (piece.has_value()) {
             // must be a pice of the right color
 
-            if(field.piece.color == player.color) {
+            if(piece.value().getColor() == player.color) {
                 // selection was valid!
-                return field;
+                // return piece;
             }
         }
 
         return {};
     }
 
-    bool moveToDestination(Field& field) {
-        /* if (movePossible) {
-
-            return true;
-        }*/
-
+    bool moveToDestination() {
         return false;
     }
 
     bool checkChessMate() {
-        // TODO
         return false;
     }
     
     private:
     // empty '', white = 'wqueen', black piece {"white", "queen"}
-    std::array<std::array<Field, 8>, 8> board;
+    std::array<std::array<std::optional<Piece>, 8>, 8> board;
 };
