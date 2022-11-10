@@ -1,13 +1,5 @@
-/*
-#include <math.h>
-#include <optional>
-#include <array>
-*/
-/*
-#include <CChess/Player.h>
-#include <CChess/Piece.h>
-#include <CChess/Coordinate.h>
-*/
+#include <CChess/Queen.h>
+
 #include <gtest/gtest.h>
 
 
