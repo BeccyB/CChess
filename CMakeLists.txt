@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_STANDARD 17)
 
-if (MSVC)
-    message("on MSVC")
+if (WIN32)
+    message("on Windows")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
-endif (MSVC)
+endif (WIN32)
 
 if (UNIX)
     message("on UNIX")
