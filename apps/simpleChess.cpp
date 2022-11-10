@@ -11,6 +11,8 @@
 
 int main () {
 
+    std::cout << "Hallo!!";
+
     /*
 
         - chess board

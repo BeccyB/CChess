@@ -1,22 +1,19 @@
+/*
 #include <math.h>
 #include <optional>
 #include <array>
-
+*/
+/*
 #include <CChess/Player.h>
 #include <CChess/Piece.h>
 #include <CChess/Coordinate.h>
+*/
+#include <gtest/gtest.h>
 
 
-
-// TODO change this to gtests
-int main () {
-
-    std::array<std::array<std::optional<Piece>,8>,8> board;
-
-
-
-
-
-
+TEST(HelloTest, BasicAssertions) {
+  // Expect two strings not to be equal.
+  EXPECT_STRNE("hello", "world");
+  // Expect equality.
+  EXPECT_EQ(7 * 6, 42);
 }
-
