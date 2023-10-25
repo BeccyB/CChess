@@ -1,14 +1,14 @@
 enable_testing()
 
-add_executable(test_make_move test_make_move.cc)
+add_executable(all_tests test_board.cc)
 
-target_link_libraries(test_make_move
-PUBLIC GTest::gtest_main
+target_link_libraries(all_tests
+    PUBLIC GTest::gtest_main
 )
 
-target_link_libraries(test_make_move
-PUBLIC CChess
+target_link_libraries(all_tests
+    PUBLIC chess
 )
 
 include(GoogleTest)
-gtest_discover_tests(test_make_move)
+gtest_discover_tests(all_tests)

@@ -1,9 +1,8 @@
-#include <CChess/Queen.h>
 
 #include <gtest/gtest.h>
 
-
-TEST(TestQueen, BasicAssertions) {
+TEST(TestQueen, BasicAssertions)
+{
   // Expect two strings not to be equal.
   EXPECT_STRNE("hello", "world");
   // Expect equality.
