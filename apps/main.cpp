@@ -1,18 +1,14 @@
 #include <iostream>
 #include <memory>
 
-class Game {
-
-  public:
-    void start(){};
-};
+#include <chess/game.h>
 
 void show_options() {
     // Game options
 }
 
-int main() {
-
+// TODO(rebecca) move this method to chess library
+void main_menu() {
     std::cout << "Chess game menu:" << std::endl;
     std::cout << "Enter \"S\" to start new Game." << std::endl;
     std::cout << "Enter \"O\" for Options" << std::endl;
@@ -34,12 +30,14 @@ int main() {
         std::cin >> name_black;
 
         // start game:
-        auto game = std::make_unique<Game>();
+        auto game = std::make_unique<chess::Game>();
         game->start();
+        return;
     }
 
     if (selection == 'O') {
         show_options(); // TODO...
+        return;
     }
 
     if (selection == 'H') {
@@ -48,11 +46,15 @@ int main() {
         std::cout << "If you want to learn more about chess, read wikipedia: "
                      "https://en.wikipedia.org/wiki/Chess. "
                   << std::endl;
+        return;
     }
 
     if (selection == 'E') {
-        return 0;
+        return;
     }
+}
 
-    // invalid selection!
+int main() {
+
+    main_menu();
 }

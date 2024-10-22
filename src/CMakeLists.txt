@@ -1,13 +1,11 @@
 
-add_library(CChess  Piece.cc
-                    Queen.cc
 
-                    "../include/CChess/Board.h"
-                    "../include/CChess/Coordinate.h"
-                    "../include/CChess/Piece.h"
-                    "../include/CChess/Player.h"
-                    "../include/CChess/Queen.h" 
+file(GLOB CHESS_INCLUDE
+    ${PROJECT_SOURCE_DIR}/include/*.h
+)
 
-                    )
+file(GLOB CHESS_SRC ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-target_include_directories(CChess PUBLIC ../include)
+add_library(chess ${CHESS_SRC} ${CHESS_INCLUDE})
+
+target_include_directories(chess PUBLIC ${PROJECT_SOURCE_DIR}/include)
