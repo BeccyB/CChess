@@ -1,11 +1,7 @@
 #include <iostream>
 #include <memory>
 
-class Game {
-
-  public:
-    void start(){};
-};
+#include <chess/game.h>
 
 void show_options() {
     // Game options
@@ -34,7 +30,7 @@ int main() {
         std::cin >> name_black;
 
         // start game:
-        auto game = std::make_unique<Game>();
+        auto game = std::make_unique<chess::Game>();
         game->start();
     }
 
