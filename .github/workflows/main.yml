@@ -21,6 +21,11 @@ jobs:
           mkdir ${{ github.workspace}}/build
           cmake -B ${{ github.workspace}}/build
 
+      - name: show dir
+        run: |
+          ls .
+          ls ${{ github.workspace}}
+
       - name: build
         run: cmake --build ${{ github.workspace}}/build
 
