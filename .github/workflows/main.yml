@@ -16,15 +16,15 @@ jobs:
     name: build_linux
     runs-on: ubuntu-22.04
     steps:
-      - name: configure cmake
-        run: |
-          mkdir ${{ github.workspace}}/build
-          cmake -B ${{ github.workspace}}/build
-
       - name: show dir
         run: |
           ls .
           ls ${{ github.workspace}}
+
+      - name: configure cmake
+        run: |
+          mkdir ${{ github.workspace}}/build
+          cmake -B ${{ github.workspace}}/build
 
       - name: build
         run: cmake --build ${{ github.workspace}}/build
