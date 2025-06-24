@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: configure cmake
-        run: >
-          mkdir build
-          cmake -B build
+        run: |
+        mkdir build
+        cmake -B build
 
       - name: build
         run: cmake --build build
