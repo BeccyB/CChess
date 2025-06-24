@@ -1,0 +1,35 @@
+name: Chess CI
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_linux:
+    name: build_linux
+    runs-on: ubuntu-22.04
+    steps:
+      - name: configure cmake
+        run: >
+          mkdir build
+          cmake -B build
+
+      - name: build
+        run: cmake --build build
+
+      - name: tests
+        run: ./build/all_tests
+
+  # build_windows:
+  #  name: build_windows
+  #  runs-on: windows-2019
+  #  steps:
+  #    - name: configure cmake
+  #    - name: build
+  #    - name: tests
