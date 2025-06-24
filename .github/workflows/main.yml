@@ -18,14 +18,14 @@ jobs:
     steps:
       - name: configure cmake
         run: |
-          mkdir build
-          cmake -B build
+          mkdir ${{ github.workspace}}/build
+          cmake -B ${{ github.workspace}}/build
 
       - name: build
-        run: cmake --build build
+        run: cmake --build ${{ github.workspace}}/build
 
       - name: tests
-        run: ./build/all_tests
+        run: ${{ github.workspace}}/build/all_tests
 
   # build_windows:
   #  name: build_windows
