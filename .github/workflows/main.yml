@@ -24,8 +24,7 @@ jobs:
       - name: configure cmake
         run: |
           mkdir ${{ github.workspace}}/build
-          
-      # cmake -B ${{ github.workspace}}/build
+          cmake -B ${{ github.workspace}}/build -S ${{ github.workspace}}
 
       # - name: build
       #   run: cmake --build ${{ github.workspace}}/build
