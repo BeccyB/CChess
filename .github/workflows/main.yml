@@ -16,18 +16,14 @@ jobs:
     name: build_linux
     runs-on: ubuntu-22.04
     steps:
-      - name: show dir
-        run: |
-          ls .
-          ls ${{ github.workspace}}
-
+      - uses: actions/checkout@v4
       - name: configure cmake
         run: |
           mkdir ${{ github.workspace}}/build
           cmake -B ${{ github.workspace}}/build -S ${{ github.workspace}}
 
-      # - name: build
-      #   run: cmake --build ${{ github.workspace}}/build
+      - name: build
+        run: cmake --build ${{ github.workspace}}/build
 
 #       - name: tests
 #         run: ${{ github.workspace}}/build/all_tests
