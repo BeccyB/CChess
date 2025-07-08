@@ -24,15 +24,18 @@ jobs:
 
       - name: build
         run: cmake --build ${{ github.workspace}}/build
-
-  test_linux:
-    name: test_linux
-    runs-on: ubuntu-22.04
-    needs: build_linux
-    steps:
-      - uses: actions/checkout@v4
-      - name: run tests
+      - name: tests
         run: ${{ github.workspace}}/build/all_tests
+
+
+  # test_linux:
+  #   name: test_linux
+  #   runs-on: ubuntu-22.04
+  #   needs: build_linux
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: run tests
+  #       run: ${{ github.workspace}}/build/all_tests
 
   # build_windows:
   #  name: build_windows
