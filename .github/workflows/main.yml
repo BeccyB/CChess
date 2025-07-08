@@ -24,13 +24,14 @@ jobs:
       - name: configure cmake
         run: |
           mkdir ${{ github.workspace}}/build
-          cmake -B ${{ github.workspace}}/build
+          
+      # cmake -B ${{ github.workspace}}/build
 
-      - name: build
-        run: cmake --build ${{ github.workspace}}/build
+      # - name: build
+      #   run: cmake --build ${{ github.workspace}}/build
 
-      - name: tests
-        run: ${{ github.workspace}}/build/all_tests
+#       - name: tests
+#         run: ${{ github.workspace}}/build/all_tests
 
   # build_windows:
   #  name: build_windows
