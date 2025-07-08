@@ -26,7 +26,7 @@ jobs:
         run: cmake --build ${{ github.workspace}}/build
       - name: tests
         run: |
-          cd ${{ github.workspace}}/build
+          cd ${{ github.workspace}}/build/tests
           ./all_tests       
       
       # run: ${{ github.workspace}}/build/all_tests
