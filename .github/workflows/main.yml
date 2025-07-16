@@ -43,6 +43,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - uses: actions/checkout@v4
       # 1. get the pre-built artifacts
       - name: Download build directory
         uses: actions/download-artifact@v4
@@ -57,7 +58,7 @@ jobs:
       # 2. test
       - name: tests
         run: |
-          cd build/tests
+          cd build/tests 
           ./all_tests
 
   # test_linux:
