@@ -25,11 +25,36 @@ jobs:
       - name: build
         run: cmake --build ${{ github.workspace}}/build
 
+      - name: create build dir archive
+        shell: bash
+        run: |
+          tar -czf build.tar.gz ${{ github.workspace}}/build
+
+      - name: Upload build directory
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-linux
+          path: build.tar.gz
+          retention-days: 1
+
   test_linux:
+    needs: build_linux
     name: test_linux
     runs-on: ubuntu-22.04
+
     steps:
-      - uses: actions/checkout@v4
+      # 1. get the pre-built artifacts
+      - name: Download build directory
+        uses: actions/download-artifact@v4
+        with:
+          name: build-linux-artifact
+
+      # 2. extract
+      - name: extract build archive
+        shell: bash
+        run: |
+          tar -xzf build.tar.gz
+      # 2. test
       - name: tests
         run: |
           cd ${{ github.workspace}}/build/tests
