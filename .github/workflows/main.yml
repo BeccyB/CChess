@@ -55,6 +55,9 @@ jobs:
         run: |
           tar -xzf build.tar.gz -C ${{ github.workspace}}
       # 2. test
+      - name: Show directory tree
+        run: |
+          tree
       - name: tests
         run: |
           cd ${{ github.workspace}}/build/tests 
