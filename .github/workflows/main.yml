@@ -24,11 +24,15 @@ jobs:
       - name: configure cmake
         run: |
           mkdir ${{ github.workspace}}/build
-          cmake -B ${{ github.workspace}}/build
+          cmake -B ${{ github.workspace}}
 
       - name: build
         run: cmake --build ${{ github.workspace}}/build
 
+  test_linux:
+    name: test_linux
+    runs-on: ubuntu-22.04
+    steps:
       - name: tests
         run: ${{ github.workspace}}/build/all_tests
 
