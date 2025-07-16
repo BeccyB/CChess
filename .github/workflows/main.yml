@@ -49,16 +49,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-linux-artifact
-
       # 2. extract
       - name: extract build archive
         shell: bash
         run: |
-          tar -xzf build.tar.gz
+          tar -xzf build.tar.gz -C ${{ github.workspace}}
       # 2. test
       - name: tests
         run: |
-          cd build/tests 
+          cd ${{ github.workspace}}/build/tests 
           ./all_tests
 
   # test_linux:
