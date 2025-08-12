@@ -65,7 +65,7 @@ jobs:
           tree
       - name: tests
         run: |
-          cd ${{ github.workspace}}/build/build/tests 
+          cd build/tests 
           ./all_tests
 
   # test_linux:
