@@ -54,13 +54,17 @@ jobs:
         shell: bash
         run: |
           tar -xzf build.tar.gz -C ${{ github.workspace}}
+      # 2. show directory
+      - name: Show directory 
+        run: |
+          ls -al
       # 2. test
       - name: Show directory tree
         run: |
           tree
       - name: tests
         run: |
-          cd ${{ github.workspace}}/build/tests 
+          cd ${{ github.workspace}}/build/build/tests 
           ./all_tests
 
   # test_linux:
