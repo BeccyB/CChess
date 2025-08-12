@@ -43,17 +43,18 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4
+      #- uses: actions/checkout@v4
       # 1. get the pre-built artifacts
       - name: Download build directory
         uses: actions/download-artifact@v4
         with:
           name: build-linux-artifact
       # 2. extract
-      - name: extract build archive
-        shell: bash
-        run: |
-          tar -xzf build.tar.gz -C ${{ github.workspace}}
+      # - name: extract build archive
+      #   shell: bash
+      #   run: |
+      #     tar -xzf build.tar.gz 
+      # -C ${{ github.workspace}}
       # 2. show directory
       - name: Show directory 
         run: |
