@@ -50,10 +50,10 @@ jobs:
         with:
           name: build-linux-artifact
       # 2. extract
-      # - name: extract build archive
-      #   shell: bash
-      #   run: |
-      #     tar -xzf build.tar.gz 
+      - name: extract build archive
+        shell: bash
+        run: |
+          tar -xzf build.tar.gz 
       # -C ${{ github.workspace}}
       # 2. show directory
       - name: Show directory 
