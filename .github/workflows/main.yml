@@ -54,33 +54,16 @@ jobs:
         shell: bash
         run: |
           tar -xzf build.tar.gz 
-      # -C ${{ github.workspace}}
-      # 2. show directory
-      - name: Show directory 
-        run: |
-          ls -al
-      # 2. test
-      - name: Show directory tree
-        run: |
-          tree
+      # 3. show directory
+      # - name: Show directory 
+      #   run: |
+      #     ls -al
+      # 4. test
+      # - name: Show directory tree
+      #   run: |
+      #     tree
       - name: tests
         run: |
           cd build/tests 
           ./all_tests
 
-  # test_linux:
-  #   name: test_linux
-  #   runs-on: ubuntu-22.04
-  #   needs: build_linux
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: run tests
-  #       run: ${{ github.workspace}}/build/all_tests
-
-  # build_windows:
-  #  name: build_windows
-  #  runs-on: windows-2019
-  #  steps:
-  #    - name: configure cmake
-  #    - name: build
-  #    - name: tests
