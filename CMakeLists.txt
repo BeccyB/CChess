@@ -17,6 +17,21 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
 
+# code coverage analysis
+IF (CMAKE_BUILD_TYPE STREQUAL "Debug")
+        # enable extensive debug output
+        OPTION(DEBUG_EXTENSIVE "Switch on extensive debug output" OFF)
+        OPTION(CHESS_ENABLE_COVERAGE "Enable GCov coverage analysis (defines a 'coverage' target and enforces static build of CHESS)" OFF)
+        IF(CHESS_ENABLE_COVERAGE)
+                MESSAGE(STATUS "Coverage enabled")
+                INCLUDE(CodeCoverage)
+                setup_code_coverage(coverage-cobertura all_tests coverage $ENV{COVERAGE_ARGS})
+        ELSE()
+                MESSAGE(STATUS "Coverage disabled")
+        ENDIF()
+ENDIF()
+
 add_subdirectory(src)
 add_subdirectory(apps)
 add_subdirectory(tests)
+
