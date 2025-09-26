@@ -16,6 +16,16 @@ jobs:
     name: build_linux
     runs-on: ubuntu-22.04
     steps:
+      - name: Install dependencies
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: |
+            sudo apt-get update -qq
+            sudo apt-get install -y ccache lcov gcovr cmake cmake-data 
+            echo "/usr/lib/ccache" >> $GITHUB_PATH
+
       - uses: actions/checkout@v4
       - name: configure cmake
         run: |
