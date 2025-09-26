@@ -1,5 +1,6 @@
 OPTION(CHESS_COVERAGE_GENHTML "Use Genhtml to generate htmls from gcov output" OFF)
 
+FIND_PROGRAM(GCOV_PATH gcovr)
 FIND_PROGRAM(GCOV_PATH gcov)
 
 IF(NOT GCOV_PATH)
