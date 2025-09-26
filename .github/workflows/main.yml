@@ -16,6 +16,9 @@ jobs:
     name: build_linux
     runs-on: ubuntu-22.04
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+
       - name: Install dependencies
         uses: nick-fields/retry@v3
         with:
@@ -26,7 +29,6 @@ jobs:
             sudo apt-get install -y ccache lcov gcovr cmake cmake-data 
             echo "/usr/lib/ccache" >> $GITHUB_PATH
 
-      - uses: actions/checkout@v4
       - name: configure cmake
         run: |
           mkdir ${{ github.workspace}}/build
