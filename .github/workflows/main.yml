@@ -79,4 +79,11 @@ jobs:
         run: |
           cd build/tests 
           ./all_tests
+  
+      - name: Generate coverage report
+        shell: bash
+        run: |
+          cd build
+          cmake --build . --target coverage_all_tests
+  
 
