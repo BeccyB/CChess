@@ -83,7 +83,6 @@ jobs:
       - name: Generate coverage report
         shell: bash
         run: |
-          cd build
-          cmake --build . --target coverage_all_tests
+          cmake --build ${{ github.workspace}}/build --target coverage_all_tests
   
 
