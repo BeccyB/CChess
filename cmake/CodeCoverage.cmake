@@ -34,10 +34,10 @@ function(setup_code_coverage _targetname _testrunner _outputname)
         COMMENT "Running coverage tests."
     )
     ADD_CUSTOM_COMMAND(TARGET ${_targetname} POST_BUILD
-        # Running gcovr with pretty-printed XML output to console
-        COMMAND ${GCOVR_PATH} --xml-pretty -r ${CMAKE_SOURCE_DIR} -e '${CMAKE_SOURCE_DIR}/tests' -e '${CMAKE_SOURCE_DIR}/build/' -s
+        # Running gcovr with summary report in human-readable format
+        COMMAND ${GCOVR_PATH} -r ${CMAKE_SOURCE_DIR} -e '${CMAKE_SOURCE_DIR}/tests' -e '${CMAKE_SOURCE_DIR}/build/' --txt
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMENT "Running gcovr to produce pretty-printed XML code coverage report. ${_testrunner} ${ARGV3}"
+        COMMENT "Running gcovr to produce human-readable code coverage summary."
     )
 
 endfunction()
