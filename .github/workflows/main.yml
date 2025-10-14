@@ -38,6 +38,22 @@ jobs:
       - name: build
         run: cmake --build ${{ github.workspace}}/build
 
+
+      - name: show dir
+        run: |
+          ls .
+          ls ${{ github.workspace}}
+
+      - name: Generate coverage report
+        shell: bash
+        run: |
+          cmake --build ${{ github.workspace}}/build --target coverage_all_tests/fast
+
+      - name: show dir
+        run: |
+          ls .
+          ls ${{ github.workspace}}
+
       - name: create build dir archive
         shell: bash
         run: |
@@ -80,9 +96,6 @@ jobs:
           cd build/tests 
           ./all_tests
   
-      - name: Generate coverage report
-        shell: bash
-        run: |
-          cmake --build ${{ github.workspace}}/build --target coverage_all_tests/fast
+
   
 
