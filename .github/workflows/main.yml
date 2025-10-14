@@ -47,8 +47,7 @@ jobs:
       - name: Generate coverage report
         shell: bash
         run: |
-          cmake --build ${{ github.workspace}}/build --target coverage_all_tests/fast
-
+          cmake --build ${{ github.workspace}}/build --target coverage_all_tests
       - name: show dir
         run: |
           ls .
