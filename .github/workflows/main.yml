@@ -12,8 +12,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_linux:
-    name: build_linux
+  build_release_linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+
+      - name: configure cmake
+        run: |
+          mkdir ${{ github.workspace}}/build
+          cmake -B ${{ github.workspace}}/build -S ${{ github.workspace}} -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF
+
+      - name: build
+        run: cmake --build ${{ github.workspace}}/build
+
+      - name: create build dir archive
+        shell: bash
+        run: |
+          tar -czf build.tar.gz build
+
+      - name: Upload build directory
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-release-linux-artifact
+          path: build.tar.gz
+          retention-days: 1
+
+  build_coverage_linux:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
@@ -35,38 +60,13 @@ jobs:
           mkdir ${{ github.workspace}}/build
           cmake -B ${{ github.workspace}}/build -S ${{ github.workspace}} -DCMAKE_BUILD_TYPE=Debug -DCHESS_ENABLE_COVERAGE=ON
 
-      - name: build
-        run: cmake --build ${{ github.workspace}}/build
-
-
-      - name: show dir
-        run: |
-          ls .
-          ls ${{ github.workspace}}
-
       - name: Generate coverage report
         shell: bash
         run: |
           cmake --build ${{ github.workspace}}/build --target coverage_all_tests
-      - name: show dir
-        run: |
-          ls .
-          ls ${{ github.workspace}}
-
-      - name: create build dir archive
-        shell: bash
-        run: |
-          tar -czf build.tar.gz build
-
-      - name: Upload build directory
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-linux-artifact
-          path: build.tar.gz
-          retention-days: 1
 
   test_linux:
-    needs: build_linux
+    needs: build_release_linux
     name: test_linux
     runs-on: ubuntu-22.04
 
