@@ -74,7 +74,7 @@ jobs:
       - name: Download build directory
         uses: actions/download-artifact@v4
         with:
-          name: build-linux-artifact
+          name: build-release-linux-artifact
       - name: extract build archive
         shell: bash
         run: |
