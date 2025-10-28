@@ -112,7 +112,9 @@ jobs:
   
       - name: build
         shell: cmd /C call {0}
-        run: cmake --build . -j 4        
+        run: |
+          cd build
+          cmake --build . -j 4        
   
       - name: test
         shell: cmd /C call {0}
