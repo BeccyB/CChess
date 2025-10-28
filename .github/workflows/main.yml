@@ -93,7 +93,7 @@ jobs:
           ./all_tests
         
   build_release_windows:
-    runs-on: windows-latest"]
+    runs-on: "windows-latest"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4 
