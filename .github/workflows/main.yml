@@ -108,7 +108,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF
   
       - name: build
         shell: cmd /C call {0}
