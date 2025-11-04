@@ -94,7 +94,6 @@ jobs:
         
   build_release_windows:
     runs-on: "windows-latest"
-    continue-on-error: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4 
@@ -112,6 +111,7 @@ jobs:
           cmake .. -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF -DCHESS_BUILD_TESTS=OFF
   
       - name: build
+        continue-on-error: true
         shell: cmd /C call {0}
         run: |
           cd build
