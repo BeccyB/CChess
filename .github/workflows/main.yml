@@ -21,7 +21,7 @@ jobs:
       - name: configure cmake
         run: |
           mkdir ${{ github.workspace}}/build
-          cmake -B ${{ github.workspace}}/build -S ${{ github.workspace}} -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF
+          cmake -B ${{ github.workspace}}/build -S ${{ github.workspace}} -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF -DCHESS_BUILD_TESTS=ON
 
       - name: build
         run: cmake --build ${{ github.workspace}}/build
