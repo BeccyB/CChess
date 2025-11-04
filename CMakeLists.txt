@@ -35,5 +35,10 @@ ENDIF()
 
 add_subdirectory(src)
 add_subdirectory(apps)
-add_subdirectory(tests)
 
+option(CHESS_BUILD_TESTS "Build Chess testsuit" OFF)
+
+if(CHESS_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif(CHESS_BUILD_TESTS)

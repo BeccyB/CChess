@@ -17,6 +17,8 @@ if(COVERAGE AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_link_libraries(all_tests PRIVATE gcov)
 endif()
 
+set(BUILD_SHARED_LIBS OFF)
+
 target_link_libraries(all_tests
     PUBLIC GTest::gtest_main
 )
@@ -26,3 +28,4 @@ target_link_libraries(all_tests
 )
 
 gtest_discover_tests(all_tests)
+
