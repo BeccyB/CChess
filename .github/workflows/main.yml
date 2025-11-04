@@ -116,6 +116,15 @@ jobs:
           cd build
           cmake --build . -j 4        
   
+      #3. show directory
+      - name: Show directory 
+        run: |
+          dir
+      #4. test
+      - name: Show directory tree
+        run: |
+          tree
+
       - name: test
         shell: cmd /C call {0}
         run: |
