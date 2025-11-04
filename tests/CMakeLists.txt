@@ -20,12 +20,13 @@ endif()
 set(BUILD_SHARED_LIBS OFF)
 
 target_link_libraries(all_tests
-    PUBLIC GTest::gtest_main
+    PUBLIC chess
 )
 
 target_link_libraries(all_tests
-    PUBLIC chess
+    PUBLIC GTest::gtest_main
 )
+
 
 gtest_discover_tests(all_tests)
 
