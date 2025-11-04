@@ -80,13 +80,13 @@ jobs:
         run: |
           tar -xzf build.tar.gz 
       # 3. show directory
-      # - name: Show directory 
-      #   run: |
-      #     ls -al
+      - name: Show directory 
+        run: |
+          ls -al
       # 4. test
-      # - name: Show directory tree
-      #   run: |
-      #     tree
+      - name: Show directory tree
+        run: |
+          tree
       - name: tests
         run: |
           cd build/tests 
