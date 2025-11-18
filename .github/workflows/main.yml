@@ -15,7 +15,7 @@ jobs:
   build_release_linux:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout repository
+      - name: Checkout repository 
         uses: actions/checkout@v4 
 
       - name: configure cmake
@@ -108,7 +108,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Debug -DCHESS_ENABLE_COVERAGE=OFF -DCHESS_BUILD_TESTS=OFF
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF -DCHESS_BUILD_TESTS=OFF
   
       - name: build
         continue-on-error: true
@@ -121,8 +121,8 @@ jobs:
       - name: Show directory 
         run: |
           dir
-      #4. test
-      - name: Show directory tree
+      #4. testasdfasdfs
+      - name: Show directory trees 
         run: |
           tree
 

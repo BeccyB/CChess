@@ -2,7 +2,7 @@
 
 class Controller {
   public:
-    int add(int a, int b) {
+    int add(int a, int b) { 
         return a + b;
     }
 
@@ -15,3 +15,5 @@ class Controller {
         return a / b;
     }
 };
+
+
