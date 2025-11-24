@@ -2,3 +2,6 @@ build/**
 .vscode
 .cache/**
 _deps
+docs/html/**
+docs/latex/**
+docs/xml/**

@@ -14,10 +14,22 @@ release = 'TBA'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+    'breathe'
+]
+
+breathe_projects = {
+    "Chess": "./xml"
+}
+
+breathe_default_project = "Chess"
 
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = [
+    "build",
+    "cmake",
+    "source",
+] 
 
 
 
