@@ -131,7 +131,16 @@ jobs:
         run: |
           cd build\tests 
           all_tests.exe  
+
+  build_dcumentation:
+      runs-on: "ubuntu-22.04"
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4 
       
+        - name: Install dependencies
+          run: |
+            pip install sphinx breathe
   
 
   
