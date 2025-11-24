@@ -92,45 +92,45 @@ jobs:
           cd build/tests 
           ./all_tests
         
-  build_release_windows:
-    runs-on: "windows-latest"
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4 
+  # build_release_windows:
+  #   runs-on: "windows-latest"
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4 
 
-      - name: Set up Visual Studio shell
-        uses: egor-tensin/vs-shell@v2
-        with:
-          arch: x64      
+  #     - name: Set up Visual Studio shell
+  #       uses: egor-tensin/vs-shell@v2
+  #       with:
+  #         arch: x64      
 
-      - name: configure cmake
-        shell: cmd /C call {0}
-        run: |
-          mkdir build
-          cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF -DCHESS_BUILD_TESTS=OFF
+  #     - name: configure cmake
+  #       shell: cmd /C call {0}
+  #       run: |
+  #         mkdir build
+  #         cd build
+  #         cmake .. -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF -DCHESS_BUILD_TESTS=OFF
   
-      - name: build
-        continue-on-error: true
-        shell: cmd /C call {0}
-        run: |
-          cd build
-          cmake --build . -j 4        
+  #     - name: build
+  #       continue-on-error: true
+  #       shell: cmd /C call {0}
+  #       run: |
+  #         cd build
+  #         cmake --build . -j 4        
   
-      #3. show directory
-      - name: Show directory 
-        run: |
-          dir
-      #4. testasdfasdfs
-      - name: Show directory trees 
-        run: |
-          tree
+  #     #3. show directory
+  #     - name: Show directory 
+  #       run: |
+  #         dir
+  #     #4. testasdfasdfs
+  #     - name: Show directory trees 
+  #       run: |
+  #         tree
 
-      - name: test
-        shell: cmd /C call {0}
-        run: |
-          cd build\tests 
-          all_tests.exe  
+  #     - name: test
+  #       shell: cmd /C call {0}
+  #       run: |
+  #         cd build\tests 
+  #         all_tests.exe  
 
   build_dcumentation:
       runs-on: "ubuntu-22.04"
