@@ -141,6 +141,7 @@ jobs:
         - name: Install dependencies
           run: |
             pip install sphinx breathe
+            sudo apt install doxygen
   
 
   
