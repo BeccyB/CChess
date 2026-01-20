@@ -132,7 +132,7 @@ jobs:
   #         cd build\tests 
   #         all_tests.exe  
 
-  build_dcumentation:
+  build_dcumentation_linux:
       runs-on: "ubuntu-22.04"
       steps:
         - name: Checkout repository
@@ -142,7 +142,9 @@ jobs:
           run: |
             pip install sphinx breathe
             sudo apt install doxygen
-  
+  # next steps: doxpyge ausführen (cd docs\doxygen Doxyfile)
+  # die generierten files verfügbar machen 
 
   
 
+ 
