@@ -7,34 +7,25 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Chess'
-copyright = '2025, RA'
-author = 'RA'
-release = 'TBA'
+copyright = '2026, Rebecca, Anton'
+author = 'Rebecca, Anton'
+release = '0.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = [
-    'breathe'
-]
-
-breathe_projects = {
-    "Chess": "./xml"
-}
-
-breathe_default_project = "Chess"
+extensions = ["breathe"]
 
 templates_path = ['_templates']
-exclude_patterns = [
-    "build",
-    "cmake",
-    "source",
-] 
-
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+breathe_projects = {
+    "Chess": "./doxygen/xml"
+}
+breathe_default_project = "Chess"
 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']

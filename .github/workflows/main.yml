@@ -133,18 +133,24 @@ jobs:
   #         all_tests.exe  
 
   build_dcumentation_linux:
-      runs-on: "ubuntu-22.04"
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4 
+    runs-on: "ubuntu-22.04"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
       
-        - name: Install dependencies
-          run: |
-            pip install sphinx breathe
-            sudo apt install doxygen
-  # next steps: doxpyge ausführen (cd docs\doxygen Doxyfile)
-  # die generierten files verfügbar machen 
+      - name: Install dependencies
+        run: |
+          pip install sphinx breathe sphinx-rtd-theme
+          sudo apt install doxygen
+      - name: build doxygen
+        run: cd docs && doxygen
+      - name: build sphinx
+        run: cd docs && sphinx-build -b html . _build/
 
-  
+
+ 
+
+
+          
 
  
