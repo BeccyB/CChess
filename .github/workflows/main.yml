@@ -146,7 +146,17 @@ jobs:
         run: cd docs && doxygen
       - name: build sphinx
         run: cd docs && sphinx-build -b html . _build/
-
+      - name: create docs archive
+        shell: bash
+        run: |
+          tar -czf docs.tar.gz docs
+      - name: Archive documentation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-without-markdown
+          path: |
+            docs.tar.gz
+            
 
  
 
