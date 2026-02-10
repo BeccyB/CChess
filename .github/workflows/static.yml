@@ -31,13 +31,43 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          pip install sphinx breathe sphinx-rtd-theme
+          sudo apt install doxygen
+      - name: build doxygen
+        run: cd docs && doxygen
+      - name: build sphinx
+        run: cd docs && sphinx-build -b html . _build/
+      - name: create docs archive
+        shell: bash
+        run: |
+          tar -czf docs.tar.gz docs
+      - name: Archive documentation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: |
+            docs.tar.gz
+          retention-days: 1
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: '.'
+          path: 'docs/_build/html'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+
+
+
+
+
+      # - name: Deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: docs/_build/html    
