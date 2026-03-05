@@ -1,0 +1,169 @@
+name: Chess CI
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+      - 14-setup-ci
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_release_linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository 
+        uses: actions/checkout@v4 
+
+      - name: configure cmake
+        run: |
+          mkdir ${{ github.workspace}}/build
+          cmake -B ${{ github.workspace}}/build -S ${{ github.workspace}} -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF -DCHESS_BUILD_TESTS=ON
+
+      - name: build
+        run: cmake --build ${{ github.workspace}}/build
+
+      - name: create build dir archive
+        shell: bash
+        run: |
+          tar -czf build.tar.gz build
+
+      - name: Upload build directory
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-release-linux-artifact
+          path: build.tar.gz
+          retention-days: 1
+
+  build_coverage_linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: |
+            sudo apt-get update -qq
+            sudo apt-get install -y ccache lcov gcovr cmake cmake-data 
+            echo "/usr/lib/ccache" >> $GITHUB_PATH^
+            which gcovr
+
+      - name: configure cmake
+        run: |
+          mkdir ${{ github.workspace}}/build
+          cmake -B ${{ github.workspace}}/build -S ${{ github.workspace}} -DCMAKE_BUILD_TYPE=Debug -DCHESS_ENABLE_COVERAGE=ON -DCHESS_BUILD_TESTS=ON
+
+      - name: Generate coverage report
+        shell: bash
+        run: |
+          cmake --build ${{ github.workspace}}/build --target coverage_all_tests
+
+  test_linux:
+    needs: build_release_linux
+    name: test_linux
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Download build directory
+        uses: actions/download-artifact@v4
+        with:
+          name: build-release-linux-artifact
+      - name: extract build archive
+        shell: bash
+        run: |
+          tar -xzf build.tar.gz 
+      # 3. show directory
+      - name: Show directory 
+        run: |
+          ls -al
+      # 4. test
+      - name: Show directory tree
+        run: |
+          tree
+      - name: tests
+        run: |
+          cd build/tests 
+          ./all_tests
+        
+  # build_release_windows:
+  #   runs-on: "windows-latest"
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4 
+
+  #     - name: Set up Visual Studio shell
+  #       uses: egor-tensin/vs-shell@v2
+  #       with:
+  #         arch: x64      
+
+  #     - name: configure cmake
+  #       shell: cmd /C call {0}
+  #       run: |
+  #         mkdir build
+  #         cd build
+  #         cmake .. -DCMAKE_BUILD_TYPE=Release -DCHESS_ENABLE_COVERAGE=OFF -DCHESS_BUILD_TESTS=OFF
+  
+  #     - name: build
+  #       continue-on-error: true
+  #       shell: cmd /C call {0}
+  #       run: |
+  #         cd build
+  #         cmake --build . -j 4        
+  
+  #     #3. show directory
+  #     - name: Show directory 
+  #       run: |
+  #         dir
+  #     #4. testasdfasdfs
+  #     - name: Show directory trees 
+  #       run: |
+  #         tree
+
+  #     - name: test
+  #       shell: cmd /C call {0}
+  #       run: |
+  #         cd build\tests 
+  #         all_tests.exe  
+
+  build_dcumentation_linux:
+    runs-on: "ubuntu-22.04"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+      
+      - name: Install dependencies
+        run: |
+          pip install sphinx breathe sphinx-rtd-theme
+          sudo apt install doxygen
+      - name: build doxygen
+        run: cd docs && doxygen
+      - name: build sphinx
+        run: cd docs && sphinx-build -b html . _build/
+      - name: create docs archive
+        shell: bash
+        run: |
+          tar -czf docs.tar.gz docs
+      - name: Archive documentation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: |
+            docs.tar.gz
+          retention-days: 1
+  
+    
+            
+
+ 
+
+
+          
+
+ 
