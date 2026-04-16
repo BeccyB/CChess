@@ -3,8 +3,9 @@
 
 int main() {
 
-    Controller c;
+    Controller controller;
 
-    std::cout << "Hello, World!" << std::endl;
+    controller.loop();
+
     return 0;
 }

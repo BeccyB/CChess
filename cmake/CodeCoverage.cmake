@@ -28,16 +28,17 @@ function(setup_code_coverage _targetname _testrunner _outputname)
     ENDIF() # NOT GCOVR_PATH
 
     ADD_CUSTOM_TARGET(${_targetname}
+
         # Run tests
         COMMAND ${_testrunner} ${ARGV3} # TODO: find out what this is
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/tests
         COMMENT "Running coverage tests."
     )
     ADD_CUSTOM_COMMAND(TARGET ${_targetname} POST_BUILD
+
         # Running gcovr with summary report in human-readable format
-        COMMAND ${GCOVR_PATH} -r ${CMAKE_SOURCE_DIR} -e '${CMAKE_SOURCE_DIR}/tests' -e '${CMAKE_SOURCE_DIR}/build/' --txt
+        COMMAND ${GCOVR_PATH} -r ${CMAKE_SOURCE_DIR} -e ${CMAKE_SOURCE_DIR}/tests/_deps -e '${CMAKE_SOURCE_DIR}/tests/*' -e '${CMAKE_SOURCE_DIR}/build/' --txt
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
         COMMENT "Running gcovr to produce human-readable code coverage summary."
     )
-
 endfunction()
