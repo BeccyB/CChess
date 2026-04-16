@@ -16,17 +16,11 @@ namespace view {
         }
 
         void instructions() {
-            show("Input format: <letter><number> e.g. F6");
-            show("Type x to stop.");
+            show("Input <A-H><1-8> or x to quit.");
         }
 
-        const std::string request_start_field() const {
-            show("Enter start field:");
-            return request_input();
-        }
-
-        const std::string request_destination_field() const {
-            show("Enter destination field:");
+        const std::string request_field(const std::string &field_type) const {
+            show("Enter " + field_type + " field:");
             return request_input();
         }
 
@@ -40,20 +34,12 @@ namespace view {
             show("Stoping Game. Good Bye!");
         }
 
-        void invalid_input() {
-            show("Invalid!");
-            instructions();
-        }
-
         void make_move(const model::Field start,
                        const model::Field destination) {
 
-            std::stringstream ss;
-
-            ss << "Moving " << start.row << start.column << " -> "
-               << destination.row << destination.column;
-
-            show(ss.str());
+            show(fmt::format("Moving {}{} -> {}{}", start.get_row(),
+                             start.get_column(), destination.get_row(),
+                             destination.get_column()));
         }
 
         void show_board(const model::Board &board) {
@@ -67,8 +53,8 @@ namespace view {
         // Function to display the board
         void displayBoard(const model::Board &board) {
             using namespace std;
-            cout << "   a  b  c  d  e  f  g  h" << endl;
-            cout << "  ------------------------" << endl;
+            cout << " a  b  c  d  e  f  g  h " << endl;
+            cout << "-------------------------" << endl;
             // indexing (row, col)
             for (const auto rows : board.fields) {
                 for (const auto col : rows) {
@@ -81,8 +67,8 @@ namespace view {
                 }
                 cout << endl;
             }
-            cout << "  ------------------------" << endl;
-            cout << "   a  b  c  d  e  f  g  h" << endl;
+            cout << "-------------------------" << endl;
+            cout << " a  b  c  d  e  f  g  h " << endl;
         }
 
       private:

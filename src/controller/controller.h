@@ -21,41 +21,28 @@ class Controller {
         viewer.displayBoard(board);
 
         while (true) {
-
-            std::optional<model::Field> start;
-            std::optional<model::Field> destination;
-
-            try {
-                start = parse_input(viewer.request_start_field());
-                if (!start.has_value()) {
-                    break;
-                }
-
-            } catch (std::invalid_argument &error) {
-                viewer.invalid_input();
+            auto start = parse_input_until_valid("start");
+            if (!start.has_value()) {
+                break; // entered x to end game
             }
 
-            try {
-                destination = parse_input(viewer.request_destination_field());
-                if (!destination.has_value()) {
-                    break;
-                }
-            } catch (std::invalid_argument &error) {
-                viewer.invalid_input();
+            auto destination = parse_input_until_valid("destination");
+            if (!destination.has_value()) {
+                break; // entered x to end game
             }
 
-            viewer.make_move(start.value(), destination.value());
             board.make_move(start.value(), destination.value());
-
-            viewer.show_board(board);
+            viewer.make_move(start.value(), destination.value());
+            viewer.displayBoard(board);
         }
+
+        viewer.end_game();
     };
 
   private:
     // TODO(bryd_re): move this somewhere else
     std::optional<model::Field> parse_input(std::string input) {
 
-        // how to map the three cases: quit, row/col, invalid input
         if (input == "x" || input == "X") {
             return {};
         } else if (input.length() <= 3) {
@@ -65,7 +52,18 @@ class Controller {
             return model::Field{input[0], std::stoi(column)};
         }
 
-        throw std::invalid_argument("Invalid input.");
+        throw std::invalid_argument("Invalid input!");
+    }
+
+    std::optional<model::Field>
+    parse_input_until_valid(const std::string &field_type) {
+        while (true) {
+            try {
+                return parse_input(viewer.request_field(field_type));
+            } catch (std::invalid_argument &error) {
+                viewer.show(error.what());
+            }
+        }
     }
 
     view::CmdView viewer;

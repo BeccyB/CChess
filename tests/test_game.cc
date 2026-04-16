@@ -13,7 +13,7 @@ TEST(TestGame, BasicAssertions) {
 
     for (const auto row : board.fields) {
         for (const auto col : row) {
-            auto rest = col == 0;
+            auto rest = col == false;
         }
     }
 

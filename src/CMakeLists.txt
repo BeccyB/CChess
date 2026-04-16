@@ -8,6 +8,14 @@ add_library(chess STATIC
     ${SRC_FILES}
 )
 
+target_link_libraries(chess PUBLIC fmt::fmt)
+
+if(TARGET fmt::fmt)
+    message(STATUS "fmt target exists: YES")
+else()
+    message(STATUS "fmt target exists: NO")
+endif()
+
 set_target_properties(chess PROPERTIES LINKER_LANGUAGE CXX)
 
 # Specify the include directories
