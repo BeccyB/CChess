@@ -1,9 +1,9 @@
 #include <iostream>
-#include "controller/controller.h"
+#include "src/controller/controller.h"
 
 int main() {
 
-    Controller c;
+    // Controller c;
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

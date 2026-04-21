@@ -1,19 +1,21 @@
 #pragma once
 
+#include "src/view/abstract_user_interface.h"
+#include "src/model/chessgame.h"
+
+
 class Controller {
-  public:
-    int add(int a, int b) { 
-        return a + b;
-    }
+public:
+    Controller(); 
 
-    int divide(int a, int b) {
+    void run_game();
 
-        if (b == 0) {
-            return 0;
-        }
-
-        return a / b;
-    }
+private:
+    Viewer _viewer;
+    Chess_board _board;
 };
+
+
+
 
 
