@@ -1,12 +1,12 @@
-enable_testing()
+enable_testing()          
 
-include(GoogleTest)
+include(GoogleTest)     
 
 file(GLOB CHESS_TESTS_INCLUDE
     ${PROJECT_SOURCE_DIR}/tests/*.cc
 )
 
-add_executable(all_tests ${CHESS_TESTS_INCLUDE})
+add_executable(all_tests ${CHESS_TESTS_INCLUDE})   
 
 # Coverage option (default: OFF)
 option(COVERAGE "Enable coverage reporting" ON)
@@ -19,14 +19,16 @@ endif()
 
 set(BUILD_SHARED_LIBS OFF)
 
+
+target_link_libraries(all_tests
+PUBLIC GTest::gtest_main
+)
+
+
 target_link_libraries(all_tests
     PUBLIC chess
 )
 
-target_link_libraries(all_tests
-    PUBLIC GTest::gtest_main
-)
-
-
 gtest_discover_tests(all_tests)
+
 
