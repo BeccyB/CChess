@@ -7,18 +7,18 @@
 namespace model {
     class Field {
 
-        char row;   // y -> numbers
-        int column; // x -> letters
+        char row;   // y -> letters
+        int column; // x -> numbers
 
       public:
         Field(char row, int column) {
-            if (row < 'A' || row > 'H') {
+            if (row < 'a' || row > 'h') {
                 throw std::invalid_argument(fmt::format(
-                    "Invalid row value {}! Must be [A, ..., H].", row));
+                    "Invalid row value {}! Must be [a, ..., h].", row));
             }
             if (column < 0 || column > 8) {
                 throw std::invalid_argument(fmt::format(
-                    "Invalid row value {}. Must be [A, ..., H]. ", column));
+                    "Invalid row value {}. Must be [1, ..., 8]. ", column));
             }
             this->row = row;
             this->column = column;
@@ -32,12 +32,11 @@ namespace model {
         };
 
         int get_column_index() const {
-            // TODO(bryd_re): map row letters to integer
-            return row - 'A';
+            return row - 'a';
         };
 
         int get_row_index() const {
-            return column - 1; // start from 0 in board
+            return column - 1;
         }
     };
 

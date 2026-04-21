@@ -5,7 +5,7 @@ int main() {
 
     Controller controller;
 
-    controller.loop();
+    controller.start();
 
     return 0;
 }

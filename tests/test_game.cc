@@ -11,7 +11,7 @@ TEST(TestGame, BasicAssertions) {
 
     model::Board board;
 
-    for (const auto row : board.fields) {
+    for (const auto row : board.get_fields()) {
         for (const auto col : row) {
             auto rest = col == false;
         }

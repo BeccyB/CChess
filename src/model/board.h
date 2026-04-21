@@ -4,27 +4,38 @@
 #include <iostream>
 
 namespace model {
-    struct Board {
-        // array of rows
-        std::array<std::array<bool, 8>, 8> fields;
+    class Board {
+
+      public:
+        using Array2d = std::array<std::array<bool, 8>, 8>;
 
         Board() {
-            // Set all values to false
+            // empty board initalization
             for (auto &row : fields) {
                 row.fill(false);
             }
         }
 
-        void make_move(const model::Field start,
-                       const model::Field destination) {
-
-            fields.at(start.get_row_index()).at(start.get_column_index()) =
-                false;
-            fields.at(destination.get_row_index())
-                .at(destination.get_column_index()) = true;
+        void make_move(const Field &start, const Field &destination) {
+            set_field(start, false);
+            set_field(destination, true);
         };
 
-        std::array<char, 8> row_letter = {'A', 'B', 'C', 'D',
-                                          'E', 'F', 'G', 'H'};
+        void set_field(const Field &field, const bool state) {
+            fields.at(field.get_row_index()).at(field.get_column_index()) =
+                state;
+        }
+
+        bool is_occupied(const Field &field) const {
+            return fields.at(field.get_row_index())
+                .at(field.get_column_index());
+        }
+
+        const Array2d &get_fields() const {
+            return fields;
+        }
+
+      private:
+        Array2d fields;
     };
 } // namespace model

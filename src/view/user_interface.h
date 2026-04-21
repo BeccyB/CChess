@@ -3,7 +3,9 @@
 #include <algorithm>
 #include <cstdio>
 #include <iostream>
+#include <optional>
 #include <sstream>
+#include <variant>
 #include "model/board.h"
 #include "model/field.h"
 
@@ -16,12 +18,27 @@ namespace view {
         }
 
         void instructions() {
-            show("Input <A-H><1-8> or x to quit.");
+            show("Input [a-h, 1-8] or x to quit.");
         }
 
         const std::string request_field(const std::string &field_type) const {
             show("Enter " + field_type + " field:");
             return request_input();
+        }
+
+        // TODO(bryd_re): move this somewhere else
+        std::optional<model::Field> parse_input(std::string input) {
+
+            if (input == "x" || input == "X") {
+                return {};
+            } else if (input.length() <= 3) {
+
+                const auto column = input.substr(1, 1);
+
+                return model::Field{input[0], std::stoi(column)};
+            }
+
+            throw std::invalid_argument("Invalid input!");
         }
 
         void start_game() {
@@ -34,7 +51,7 @@ namespace view {
             show("Stoping Game. Good Bye!");
         }
 
-        void make_move(const model::Field start,
+        void show_move(const model::Field start,
                        const model::Field destination) {
 
             show(fmt::format("Moving {}{} -> {}{}", start.get_row(),
@@ -42,33 +59,26 @@ namespace view {
                              destination.get_column()));
         }
 
-        void show_board(const model::Board &board) {
-
-            std::for_each(board.fields.cbegin(), board.fields.cend(),
-                          [](const auto &row) {
-                              // TODO
-                          });
-        }
-
         // Function to display the board
-        void displayBoard(const model::Board &board) {
+        void display_board(const model::Board &board) {
             using namespace std;
-            cout << " a  b  c  d  e  f  g  h " << endl;
-            cout << "-------------------------" << endl;
-            // indexing (row, col)
-            for (const auto rows : board.fields) {
+            cout << "  a  b  c  d  e  f  g  h " << endl;
+            cout << " ------------------------" << endl;
+            int row_index = 1;
+            for (const auto rows : board.get_fields()) {
+                cout << row_index;
                 for (const auto col : rows) {
                     if (col) {
-                        // chess pice
                         cout << " x ";
                     } else {
-                        cout << "  ";
+                        cout << "   ";
                     }
                 }
-                cout << endl;
+                cout << row_index << endl;
+                row_index++;
             }
-            cout << "-------------------------" << endl;
-            cout << " a  b  c  d  e  f  g  h " << endl;
+            cout << " ------------------------" << endl;
+            cout << "  a  b  c  d  e  f  g  h " << endl;
         }
 
       private:
