@@ -3,12 +3,11 @@ name: Chess CI
 on:
   push:
     branches:
-      - main
+      - master
       - release/*
-      - 14-setup-ci
   pull_request:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
