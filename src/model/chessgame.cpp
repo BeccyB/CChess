@@ -6,7 +6,7 @@ Position_of_pawn::Position_of_pawn(int val_x, int val_y)
 Chess_board::Chess_board()
     : _p(3, 1) {}
 
-Position_of_pawn Chess_board::get_pawn_position() {
+Position_of_pawn Chess_board::get_pawn_position() const {
     return _p;
 }
 

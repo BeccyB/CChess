@@ -7,7 +7,7 @@ Controller::Controller()
 
 void Controller::run_game() {
 
-    int max_steps = 8;
+    int max_steps = 8; // move to chess_board
     int count_steps = 0;
 
     while (count_steps < max_steps) {
