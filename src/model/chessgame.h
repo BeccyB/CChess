@@ -1,8 +1,9 @@
 #pragma once
 
 struct Position_of_pawn {
-    int x;
-    int y;
+    Position_of_pawn(int val_x, int val_y);
+    
+    int x, y;
 };
 
 class Chess_board {

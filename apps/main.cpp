@@ -1,10 +1,12 @@
 #include <iostream>
 #include "src/controller/controller.h"
+#include "src/model/chessgame.h"
+#include "src/view/abstract_user_interface.h"
 
 int main() {
+    Controller c;
 
-    // Controller c;
+    c.run_game();
 
-    std::cout << "Hello, World!" << std::endl;
     return 0;
 }
