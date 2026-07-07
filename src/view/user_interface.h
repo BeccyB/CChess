@@ -7,11 +7,11 @@
 #include <sstream>
 #include <variant>
 #include "model/board.h"
-#include "model/field.h"
+#include "model/coordinate.h"
 
 namespace view {
 
-    class CmdView {
+    class CmdGui {
       public:
         void show(const std::string message) const {
             std::printf("%s\n", message.c_str());
@@ -21,24 +21,10 @@ namespace view {
             show("Input [a-h, 1-8] or x to quit.");
         }
 
-        const std::string request_field(const std::string &field_type) const {
-            show("Enter " + field_type + " field:");
-            return request_input();
-        }
-
-        // TODO(bryd_re): move this somewhere else
-        std::optional<model::Field> parse_input(std::string input) {
-
-            if (input == "x" || input == "X") {
-                return {};
-            } else if (input.length() <= 3) {
-
-                const auto column = input.substr(1, 1);
-
-                return model::Field{input[0], std::stoi(column)};
-            }
-
-            throw std::invalid_argument("Invalid input!");
+        std::string input_string() const {
+            std::string input;
+            std::cin >> input;
+            return input;
         }
 
         void start_game() {
@@ -51,8 +37,8 @@ namespace view {
             show("Stoping Game. Good Bye!");
         }
 
-        void show_move(const model::Field start,
-                       const model::Field destination) {
+        void show_move(const model::Coordinate start,
+                       const model::Coordinate destination) {
 
             show(fmt::format("Moving {}{} -> {}{}", start.get_row(),
                              start.get_column(), destination.get_row(),
@@ -82,11 +68,6 @@ namespace view {
         }
 
       private:
-        std::string request_input() const {
-            std::string user_input;
-            std::cin >> user_input;
-            return user_input;
-        }
     };
 
 } // namespace view
