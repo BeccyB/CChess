@@ -5,7 +5,6 @@
 
 int main() {
     Controller c;
-
     c.run_game();
 
     return 0;
