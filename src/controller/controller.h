@@ -3,7 +3,6 @@
 #include "src/view/abstract_user_interface.h"
 #include "src/model/chessgame.h"
 
-
 class Controller {
 public:
     Controller(); 

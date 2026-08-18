@@ -12,10 +12,6 @@ class Chess_board {
 public:
     Chess_board();
 
-    // Position_of_pawn get_pawn_position() const;
-
-    // void move_pawn_one_step_forward();
-
     bool check_if_there_is_a_pawn_in_given_position(int x, int y) const;
 
     bool pawn_reached_other_side() const;

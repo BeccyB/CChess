@@ -18,14 +18,6 @@ Chess_board::Chess_board()
     _positions = {pawn1, pawn2, pawn3, pawn4, pawn5, pawn6, pawn7, pawn8};
 }
 
-// Position_of_pawn Chess_board::get_pawn_position() const {
-//     return _p;
-// }
-
-// void Chess_board::move_pawn_one_step_forward() {
-//     _p.y += 1;
-// }
-
 std::vector<Position_of_pawn> Chess_board::get_positions_of_pawns() const {
     return _positions;
 }
