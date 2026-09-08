@@ -4,7 +4,10 @@ Position_of_pawn::Position_of_pawn(int val_x, int val_y)
     : x(val_x), y(val_y) {}
 
 Chess_board::Chess_board()
-    : _board_lower_bound_x(1), _board_upper_bound_x(8), _board_lower_bound_y(1), _board_upper_bound_y(8) {
+    : _board_lower_bound_x(1), 
+      _board_upper_bound_x(8), 
+      _board_lower_bound_y(1), 
+      _board_upper_bound_y(8) {
 
     Position_of_pawn pawn1 (1, 2); // for loop would make code shorter and dryer
     Position_of_pawn pawn2 (2, 2);
@@ -29,6 +32,11 @@ bool Chess_board::check_if_there_is_a_pawn_in_given_position(int x, int y) const
         }
     }
     return false;
+}
+
+bool Chess_board::selection_is_inside_the_field(int x, int y) const {
+    return _board_lower_bound_x <= x && _board_upper_bound_x >= x &&
+           _board_lower_bound_y <= x && _board_upper_bound_y >= y;
 }
 
 bool Chess_board::pawn_reached_other_side() const {
@@ -56,7 +64,11 @@ int Chess_board::get_board_upper_bound_y() const {
     return _board_upper_bound_y;
 }
 
-bool Chess_board::selection_inside_the_field(int x, int y) const {
-    return _board_lower_bound_x <= x && _board_upper_bound_x >= x &&
-           _board_lower_bound_y <= x && _board_upper_bound_y >= y;
+void Chess_board::move_pawn_one_step_forward(int x, int y) {
+    for (Position_of_pawn& c : _positions) {
+        if ((c.x == x) && (c.y == y)) {
+            c.y ++;
+        }
+    }
 }
+

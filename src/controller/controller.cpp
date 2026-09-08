@@ -7,13 +7,13 @@ Controller::Controller()
 
 void Controller::run_game() { 
 
-    while (_board.pawn_reached_other_side() == false) {
+    while (!_board.pawn_reached_other_side()) {
         _viewer.display_game(_board);
         std::pair<int, int> input_coords {0, 0}; // intended not to be on the board
 
         while (true) {
             bool inside_field = 
-                _board.selection_inside_the_field(input_coords.first, input_coords.second);
+                _board.selection_is_inside_the_field(input_coords.first, input_coords.second);
             bool pawn_exists_on_position = 
                 _board.check_if_there_is_a_pawn_in_given_position(input_coords.first, input_coords.second);
 
@@ -25,9 +25,7 @@ void Controller::run_game() {
         }
 
         // here, the coords must be on the board and a pawns position.
-        //move_pawn_one_step_forward();         // board gets updated
-
-        break;
+        _board.move_pawn_one_step_forward(input_coords.first, input_coords.second); // board gets updated
     }
 
     _viewer.print_pawn_reached_other_side_and_game_over();

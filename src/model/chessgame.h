@@ -13,6 +13,7 @@ public:
     Chess_board();
 
     bool check_if_there_is_a_pawn_in_given_position(int x, int y) const;
+    bool selection_is_inside_the_field(int x, int y) const;
 
     bool pawn_reached_other_side() const;
 
@@ -23,8 +24,6 @@ public:
     int get_board_upper_bound_x() const;
     int get_board_upper_bound_y() const;
 
-    bool selection_inside_the_field(int x, int y) const;
-    
     void move_pawn_one_step_forward(int x, int y);
 
 private:
