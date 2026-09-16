@@ -1,5 +1,7 @@
 #include "chessgame.h"
 
+#include <algorithm>
+
 Position_of_pawn::Position_of_pawn(int val_x, int val_y)
     : x(val_x), y(val_y) {}
 
@@ -64,11 +66,17 @@ int Chess_board::get_board_upper_bound_y() const {
     return _board_upper_bound_y;
 }
 
+// void Chess_board::move_pawn_one_step_forward(int x, int y) {
+//     for (Position_of_pawn& c : _positions) {
+//         if ((c.x == x) && (c.y == y)) {
+//             c.y ++;
+//         }
+//     }
+// }
+
 void Chess_board::move_pawn_one_step_forward(int x, int y) {
-    for (Position_of_pawn& c : _positions) {
-        if ((c.x == x) && (c.y == y)) {
-            c.y ++;
-        }
-    }
+    auto it = std::find_if(_positions.begin(), _positions.end(), [x, y](const Position_of_pawn& p){ return p.x == x && p.y == y;});
+    if (it != _positions.end())
+        ++it->y; // look at this critically // try std::ranges ... find, (instead of begin/end only positions) (newer and maybe nicer)
 }
 
