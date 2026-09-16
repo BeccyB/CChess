@@ -2,71 +2,27 @@
 
 #include <optional>
 #include "model/coordinate.h"
-#include "model/board.h"
 
 namespace model {
 
-    struct GameMove {
+    class GameMove {
+      public:
+        GameMove(const Coordinate start, const Coordinate destination)
+            : start_(start), destination_(destination){};
 
-        enum class ValidityStatus {
-            NOT_OCCUPID,  // there is not chess pice that can be selected
-            OCCUPID,      // the destination field is occupied
-            OUT_OF_REACH, // the destination field is out of reach for the chess
-                          // piece
-            VALID,        // it is a valid selection
-        };
+        ~GameMove() = default;
 
-        std::optional<model::Coordinate> start;
-        std::optional<model::Coordinate> destination;
-
-        // other moved might require other inputs besides start and
-        // destination???
-        bool ready() const {
-            return start.has_value() && destination.has_value();
+        GameMove(const GameMove &other)
+            : start_(other.start_), destination_(other.destination_) {
         }
 
-        const std::pair<model::Coordinate, model::Coordinate> get() const {
-            return {start.value(), destination.value()};
-        }
+        const std::pair<model::Coordinate, model::Coordinate>
+        coordinates() const;
 
-        ValidityStatus set_if_valid(const model::Board &board,
-                                    const model::Coordinate coordinate) {
+        bool is_equal() const;
 
-            if (!start.has_value()) {
-                // first user must input start
-                if (!board.is_occupied(coordinate)) {
-                    return ValidityStatus::NOT_OCCUPID;
-                }
-                start = coordinate;
-            } else if (!destination.has_value()) {
-                // then destination
-                if (board.is_occupied(coordinate)) {
-                    return ValidityStatus::OCCUPID;
-                }
-                destination = coordinate;
-            }
-
-            // allow user to reset selection
-            reset_if_equal();
-
-            return ValidityStatus::VALID;
-        }
-
-        void reset() {
-            if (start.has_value()) {
-                start = {};
-            }
-
-            if (destination.has_value()) {
-                destination = {};
-            }
-        }
-
-        void reset_if_equal() {
-            if (ready() && start.value() == destination.value()) {
-                start = {};
-                destination = {};
-            }
-        }
+      private:
+        Coordinate start_;
+        Coordinate destination_;
     };
 } // namespace model

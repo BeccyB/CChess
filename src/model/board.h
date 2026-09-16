@@ -1,50 +1,46 @@
 #pragma once
+#include "coordinate.h"
+#include "model/game_move.h"
 #include "model/coordinate.h"
+#include "model/game_move_validity_status.h"
+
 #include <array>
 #include <iostream>
+#include <optional>
 
 namespace model {
 
     class Board {
 
-        int min = 0;
-        int max = 8;
-
       public:
-        using Array2d = std::array<std::array<bool, 8>, 8>;
+        char empty_field = 'e';
+
+        using Array2d = std::array<std::array<char, constants::MAX_INDEX>,
+                                   constants::MAX_INDEX>;
 
         Board() {
             // empty board initalization
             for (auto &row : fields) {
-                row.fill(false);
+                row.fill(empty_field);
             }
         }
 
-        void initalize_with_pawns() {
-            for (int i = min; i < max; ++i) {
-                fields.at(1).at(i) = true;
-                fields.at(6).at(i) = true;
-            }
-        }
+        void initalize_with_pawns();
 
-        void make_move(const Coordinate &start, const Coordinate &destination) {
-            set_field(start, false);
-            set_field(destination, true);
-        };
+        void make_move(const GameMove next_move);
 
-        void set_field(const Coordinate &coordinate, const bool state) {
-            fields.at(coordinate.get_row_index())
-                .at(coordinate.get_column_index()) = state;
-        }
+        void set_field(const Coordinate &coordinate, const char piece);
 
-        bool is_occupied(const Coordinate &coordinate) const {
-            return fields.at(coordinate.get_row_index())
-                .at(coordinate.get_column_index());
-        }
+        char get_field(const Coordinate &coordinate) const;
 
-        const Array2d &get_fields() const {
-            return fields;
-        }
+        bool is_occupied(const Coordinate &coordinate) const;
+
+        const Array2d &get_fields() const;
+
+        GameMoveValidityStatus
+        determine_game_move_validity(const model::GameMove &next_move) const;
+
+        bool is_move_valid(const model::GameMove move) const;
 
       private:
         Array2d fields;
