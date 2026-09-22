@@ -21,7 +21,7 @@ namespace model {
     }
 
     std::string ChessGame::current_colour() const {
-        return colours[current_player()];
+        return colours_[current_player()];
     }
 
     void ChessGame::increment_input_request_count() {
@@ -38,11 +38,9 @@ namespace model {
 
     bool ChessGame::handle_game_move(const model::GameMove next_move) {
 
-        auto [start, dest] = next_move.coordinates();
+        if (next_move.is_move_valid(board_)) {
 
-        if (board_.is_move_valid(next_move)) {
-
-            board_.make_move(next_move);
+            next_move.execute_move(board_);
             history_.push_back(next_move);
             switch_to_next_player();
 

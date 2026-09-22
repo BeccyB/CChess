@@ -25,7 +25,7 @@ TEST(TestPawnMove, BasicAssertions) {
     ASSERT_TRUE(move.ready());
 
     auto [start, destination] = move.get();
-    board.make_move(start, destination);
+    board.execute_move(start, destination);
 
     ASSERT_TRUE(board.is_occupied(d1));
 
@@ -41,7 +41,7 @@ TEST(TestPawnMove, BasicAssertions) {
 
     if (next_move.ready()) {
         auto [start_next, destination_next] = next_move.get();
-        board.make_move(start_next, destination_next);
+        board.execute_move(start_next, destination_next);
 
         ASSERT_TRUE(board.is_occupied(destination_next));
     }

@@ -2,6 +2,7 @@
 
 #include <optional>
 #include "model/coordinate.h"
+#include "model/board.h"
 
 namespace model {
 
@@ -26,6 +27,13 @@ namespace model {
         coordinates() const;
 
         bool is_equal() const;
+
+        GameMove::ValidityStatus
+        determine_game_move_validity(const model::Board &board) const;
+
+        bool is_move_valid(const model::Board &board) const;
+
+        void execute_move(Board &board) const;
 
       private:
         Coordinate start_;

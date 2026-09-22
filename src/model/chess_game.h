@@ -19,7 +19,7 @@ namespace model {
         int current_player_index_ = 0;
         int input_request_count_ = 0;
         bool should_stop_ = false;
-        std::array<std::string, 2> colours = {"white", "black"};
+        std::array<std::string, 2> colours_ = {"white", "black"};
         std::vector<GameMove> history_ = {};
         Board board_;
 

@@ -39,7 +39,7 @@ namespace model {
     // What is assosiated with a chess piece?
     class Piece {
         Colour colour;
-        std::string board_id;
+        PieceType type;
     };
 
 } // namespace model
