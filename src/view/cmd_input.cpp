@@ -2,8 +2,10 @@
 #include "view/cmd_output.h"
 
 namespace view {
+
+    constexpr int LENGTH_COORDINATE = 2;
+
     std::string reqest_user_input(std::string message) {
-        show(message);
         std::string input;
         std::cin >> input;
         return input;
@@ -47,8 +49,7 @@ namespace view {
         return {};
     }
 
-    std::variant<model::GameMove, model::GameOption>
-    parse_user_input(std::string input) {
+    model::UserInput parse_user_input(std::string input) {
 
         if (input == "x" || input == "X" || input == "q") {
             return model::GameOption::END_GAME;
@@ -62,6 +63,11 @@ namespace view {
         }
 
         return model::GameOption::UNKOWN_INPUT;
+    }
+
+    model::UserInput user_input() {
+        const auto raw_input = view::reqest_user_input();
+        return view::parse_user_input(raw_input);
     }
 
 } // namespace view

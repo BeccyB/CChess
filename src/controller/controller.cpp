@@ -2,6 +2,8 @@
 #include "view/cmd_input.h"
 #include "view/cmd_output.h"
 
+#include "controller/user_input_handler.h"
+
 namespace controller {
 
     void Controller::run() {
@@ -22,11 +24,7 @@ namespace controller {
             try {
                 view::show_next_player(game.current_colour());
 
-                // combine these two lines
-                const auto raw_input = view::reqest_user_input();
-                const auto input = view::parse_user_input(raw_input);
-
-                std::visit(UserInputHandler{game}, input);
+                std::visit(UserInputHandler{game}, view::user_input());
 
             } catch (std::exception) {
                 view::show("Error occured while making chess move!");

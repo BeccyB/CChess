@@ -14,7 +14,6 @@
 
 namespace view {
 
-    constexpr int LENGTH_COORDINATE = 2;
 
     void show(const std::string message);
 

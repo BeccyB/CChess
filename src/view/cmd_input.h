@@ -9,6 +9,7 @@
 #include "model/coordinate.h"
 #include "model/game_move.h"
 #include "model/game_option.h"
+#include "model/user_input.h"
 
 namespace view {
 
@@ -19,7 +20,8 @@ namespace view {
     std::optional<model::GameMove>
     parse_start_and_destination(std::string input);
 
-    std::variant<model::GameMove, model::GameOption>
-    parse_user_input(std::string input);
+    model::UserInput parse_user_input(std::string input);
+
+    model::UserInput user_input();
 
 } // namespace view
