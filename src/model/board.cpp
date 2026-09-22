@@ -1,14 +1,28 @@
 #include "model/board.h"
+#include <algorithm>
 
 namespace model {
 
     void Board::initalize_with_pawns() {
-        for (int i = constants::MIN_INDEX; i < constants::MAX_INDEX; ++i) {
-            fields.at(1).at(i) = 'P';
-            fields.at(6).at(i) = 'P';
-        }
-        fields.at(0).at(3) = 'Q'; // black is on the top
-        fields.at(7).at(3) = 'Q'; // white is on the botton
+        // black is on the top
+        fields.at(0).at(0) = 'c';
+        fields.at(0).at(1) = 'k';
+        fields.at(0).at(2) = 'b';
+
+        fields.at(0).at(3) = 'Q';
+        fields.at(0).at(4) = 'K';
+
+        fields.at(1).fill('p');
+
+        auto begin = fields.at(0).begin();
+        std::copy_backward(begin, begin + 3, fields.at(0).end());
+        std::reverse_copy(begin, begin + 3, begin + 5);
+
+        std::copy(fields.at(1).begin(), fields.at(1).end(),
+                  fields.at(6).begin());
+
+        std::copy(fields.at(0).begin(), fields.at(0).end(),
+                  fields.at(7).begin());
     }
 
     void Board::make_move(const GameMove next_move) {
@@ -39,24 +53,24 @@ namespace model {
         return fields;
     }
 
-    GameMoveValidityStatus Board::determine_game_move_validity(
+    GameMove::ValidityStatus Board::determine_game_move_validity(
         const model::GameMove &next_move) const {
         const auto [start, destination] = next_move.coordinates();
 
         if (!is_occupied(start)) {
-            return GameMoveValidityStatus::NOT_OCCUPID;
+            return GameMove::ValidityStatus::NOT_OCCUPID;
         }
 
         if (is_occupied(destination)) {
-            return GameMoveValidityStatus::OCCUPID;
+            return GameMove::ValidityStatus::OCCUPID;
         }
 
         // TODO: more checks here!!!!
-        return GameMoveValidityStatus::VALID;
+        return GameMove::ValidityStatus::VALID;
     }
 
     bool Board::is_move_valid(const model::GameMove move) const {
         return determine_game_move_validity(move) ==
-               GameMoveValidityStatus::VALID;
+               GameMove::ValidityStatus::VALID;
     }
 } // namespace model

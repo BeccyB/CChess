@@ -1,4 +1,6 @@
 #include "controller/controller.h"
+#include "view/cmd_input.h"
+#include "view/cmd_output.h"
 
 namespace controller {
 
@@ -11,27 +13,26 @@ namespace controller {
 
         ChessGame game;
 
-        gui.start_game();
-        gui.instructions();
-        gui.display_board(game.board());
+        view::show_game_start();
+        view::show(game.board());
 
         const std::array<std::string, 2> colours = {"white", "black"};
 
         while (!game.should_stop()) {
             try {
-                gui.show_next_player(game.current_colour());
+                view::show_next_player(game.current_colour());
 
                 // combine these two lines
-                const auto raw_input = gui.reqest_user_input();
-                const auto input = gui.parse_user_input(raw_input);
+                const auto raw_input = view::reqest_user_input();
+                const auto input = view::parse_user_input(raw_input);
 
-                std::visit(UserInputHandler{game, gui}, input);
+                std::visit(UserInputHandler{game}, input);
 
             } catch (std::exception) {
-                gui.show("Error occured while making chess move!");
+                view::show("Error occured while making chess move!");
             }
         }
 
-        gui.end_game();
+        view::show_game_end();
     }
 } // namespace controller

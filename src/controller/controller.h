@@ -14,7 +14,8 @@
 #include "fmt/core.h"
 #include "model/board.h"
 #include "model/chess_game.h"
-#include "view/user_interface.h"
+#include "view/cmd_input.h"
+#include "view/cmd_output.h"
 #include "model/coordinate.h"
 #include "model/game_move.h"
 #include "model/game_option.h"
@@ -23,17 +24,10 @@ namespace controller {
     struct UserInputHandler {
 
         model::ChessGame &game;
-        view::CmdGui &gui;
 
         void operator()(const model::GameMove move) const {
-            const auto status = game.handle_game_move(move);
-
-            if (status) {
-                game.switch_to_next_player();
-                gui.display_board(game.board());
-            } else {
-                gui.show("Invalid move!");
-            }
+            auto status = game.handle_game_move(move);
+            view::show(game.board(), status);
         }
 
         void operator()(const model::GameOption &option) const {
@@ -52,9 +46,6 @@ namespace controller {
         void run();
 
         void play_chess_game();
-
-      private:
-        view::CmdGui gui;
     };
 
 } // namespace controller

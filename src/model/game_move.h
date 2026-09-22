@@ -7,6 +7,12 @@ namespace model {
 
     class GameMove {
       public:
+        enum class ValidityStatus {
+            NOT_OCCUPID, // there is not chess pice that can be selected
+            OCCUPID,     // the destination field is occupied
+            VALID,       // it is a valid selection
+        };
+
         GameMove(const Coordinate start, const Coordinate destination)
             : start_(start), destination_(destination){};
 

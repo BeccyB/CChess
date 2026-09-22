@@ -38,13 +38,14 @@ namespace model {
 
     bool ChessGame::handle_game_move(const model::GameMove next_move) {
 
-        std::cout << next_move.is_equal() << std::endl;
         auto [start, dest] = next_move.coordinates();
 
         if (board_.is_move_valid(next_move)) {
 
             board_.make_move(next_move);
             history_.push_back(next_move);
+            switch_to_next_player();
+
             return true;
         }
         return false;

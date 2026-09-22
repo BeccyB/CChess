@@ -2,7 +2,6 @@
 #include "coordinate.h"
 #include "model/game_move.h"
 #include "model/coordinate.h"
-#include "model/game_move_validity_status.h"
 
 #include <array>
 #include <iostream>
@@ -37,7 +36,7 @@ namespace model {
 
         const Array2d &get_fields() const;
 
-        GameMoveValidityStatus
+        GameMove::ValidityStatus
         determine_game_move_validity(const model::GameMove &next_move) const;
 
         bool is_move_valid(const model::GameMove move) const;

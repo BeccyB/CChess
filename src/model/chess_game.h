@@ -2,7 +2,8 @@
 
 #include "model/game_move.h"
 #include "model/board.h"
-#include "view/user_interface.h"
+#include "view/cmd_input.h"
+#include "view/cmd_output.h"
 #include "model/coordinate.h"
 #include "model/game_move.h"
 #include "model/game_option.h"
