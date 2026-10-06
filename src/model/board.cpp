@@ -24,6 +24,8 @@ namespace model {
 
         std::copy(fields.at(0).begin(), fields.at(0).end(),
                   fields.at(7).begin());
+
+        std::swap(fields.at(7).at(3), fields.at(7).at(4));
     }
 
     void Board::set_field(const Coordinate &coordinate, const char piece) {
