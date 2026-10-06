@@ -1,5 +1,6 @@
 #include "view/cmd_output.h"
 #include "model/chess_game.h"
+#include "model/chess_piece.h"
 
 namespace view {
 
@@ -8,7 +9,7 @@ namespace view {
     }
 
     void show_instructions() {
-        show("Input <a-h><1-8> or x to quit.");
+        show("Input <a-h><1-8> or Q/q/x to quit. Pres i for instructions.");
     }
 
     void show_game_start() {
@@ -21,6 +22,12 @@ namespace view {
         show("");
     }
 
+    void show_game_wone(model::Colour colour) {
+        auto msg = fmt::format("Check Mate!!! {} wins! :) :) :) :)",
+                               model::to_string(colour));
+        view::show(msg);
+    }
+
     void show_game_end() {
 
         show("");
@@ -29,9 +36,9 @@ namespace view {
         show("****************************************");
     }
 
-    void show_next_player(std::string name) {
-        // make this a member variable of gui!
-        show(fmt::format("{}, it is your turn:", name));
+    void show_next_player(model::Colour colour) {
+        show(fmt::format("{} player, it is your turn:",
+                         model::to_string(colour)));
     }
 
     void show(const model::Coordinate start,
@@ -42,29 +49,23 @@ namespace view {
                          destination.get_column()));
     }
 
-    void show(const model::GameMove::ValidityStatus status) {
+    void show(const model::ChessMoveStatus status) {
 
         switch (status) {
-        case model::GameMove::ValidityStatus::NOT_OCCUPID:
+        case model::ChessMoveStatus::NOT_OCCUPID:
             show("You selected an empty field.");
             break;
-        case model::GameMove::ValidityStatus::OCCUPID:
+        case model::ChessMoveStatus::OCCUPID:
             show("You selected an occupied field.");
             break;
-        case model::GameMove::ValidityStatus::VALID:
+        case model::ChessMoveStatus::VALID:
             show("Valid input.");
             break;
         }
     }
 
-    void show(const model::Board &board, bool move_status) {
+    void show(const model::Board &board) {
 
-        if (!move_status) {
-            show("Invalid move!");
-            return;
-        }
-
-        // if move successful then print game board!
         using namespace std;
         std::string letter_header = "  |  a  b  c  d  e  f  g  h |  ";
         std::string horizontal_separator = "--|-------------------------|--";

@@ -59,10 +59,10 @@ TEST(TestGameMove, BasicAssertions) {
 
     // valid start and destination
     auto status1 = move.set_if_valid(board, model::Coordinate{'b', "2"});
-    ASSERT_EQ(status1, model::GameMove::ValidityStatus::VALID);
+    ASSERT_EQ(status1, model::GameMove::ChessMoveStatus::VALID);
 
     auto status2 = move.set_if_valid(board, model::Coordinate{'c', "2"});
-    ASSERT_EQ(status2, model::GameMove::ValidityStatus::VALID);
+    ASSERT_EQ(status2, model::GameMove::ChessMoveStatus::VALID);
     ASSERT_TRUE(move.ready());
 
     model::GameMove move_invalid;
@@ -75,10 +75,10 @@ TEST(TestGameMove, BasicAssertions) {
     status1 = move_invalid.set_if_valid(board, coord);
 
     auto value =
-        status1 == model::GameMove::ValidityStatus::VALID ? "VALID" : "other";
+        status1 == model::GameMove::ChessMoveStatus::VALID ? "VALID" : "other";
     std::cout << value << std::endl;
 
-    ASSERT_EQ(status1, model::GameMove::ValidityStatus::VALID);
+    ASSERT_EQ(status1, model::GameMove::ChessMoveStatus::VALID);
 
     ASSERT_FALSE(move_invalid.start.has_value());
     ASSERT_FALSE(move_invalid.destination.has_value());

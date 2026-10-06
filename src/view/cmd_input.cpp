@@ -1,4 +1,5 @@
 #include "view/cmd_input.h"
+#include "model/game_option.h"
 #include "view/cmd_output.h"
 
 namespace view {
@@ -50,9 +51,14 @@ namespace view {
     }
 
     model::UserInput parse_user_input(std::string input) {
+        // TODO(rebecca): make input letters as constants and use the same in
+        // show_instructions
 
         if (input == "x" || input == "X" || input == "q") {
             return model::GameOption::END_GAME;
+
+        } else if (input == "i") {
+            return model::GameOption::SHOW_INSTRUCTIONS;
 
         } else if (input.length() == 2 * LENGTH_COORDINATE) {
             auto result = parse_start_and_destination(input);

@@ -9,6 +9,8 @@ namespace model {
         BLACK,
     };
 
+    std::string to_string(Colour colour);
+
     enum class PieceType {
         PAWN,
         QUEEN,

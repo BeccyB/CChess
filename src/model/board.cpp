@@ -5,14 +5,14 @@ namespace model {
 
     void Board::initalize_with_pawns() {
         // black is on the top
-        fields.at(0).at(0) = 'c';
-        fields.at(0).at(1) = 'k';
-        fields.at(0).at(2) = 'b';
+        fields.at(0).at(0) = 'R'; // Rook
+        fields.at(0).at(1) = 'N'; // Knight
+        fields.at(0).at(2) = 'B'; // Bishop
 
-        fields.at(0).at(3) = 'Q';
-        fields.at(0).at(4) = 'K';
+        fields.at(0).at(3) = 'Q'; // Queen
+        fields.at(0).at(4) = 'K'; // King
 
-        fields.at(1).fill('p');
+        fields.at(1).fill('P'); // Pawn
 
         // copy bishop, knight, castle in reverse order
         auto begin = fields.at(0).begin();

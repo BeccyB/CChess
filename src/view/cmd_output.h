@@ -14,7 +14,6 @@
 
 namespace view {
 
-
     void show(const std::string message);
 
     void show_instructions();
@@ -23,13 +22,15 @@ namespace view {
 
     void show_game_end();
 
-    void show_next_player(std::string name);
+    void show_game_wone(model::Colour colour);
+
+    void show_next_player(model::Colour colour);
 
     void show(const model::Coordinate start,
               const model::Coordinate destination);
 
-    void show(const model::GameMove::ValidityStatus status);
+    void show(const model::ChessMoveStatus status);
 
-    void show(const model::Board &board, bool move_status = true);
+    void show(const model::Board &board);
 
 } // namespace view

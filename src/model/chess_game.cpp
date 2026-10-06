@@ -1,4 +1,6 @@
 #include "chess_game.h"
+#include "model/chess_piece.h"
+#include "model/game_move.h"
 
 #include <iostream>
 
@@ -12,16 +14,17 @@ namespace model {
         return board_;
     }
 
-    void ChessGame::switch_to_next_player() {
-        ++current_player_index_ %= 2;
+    void ChessGame::switch_to_next_colour() {
+        current_colour_ =
+            current_colour_ == Colour::WHITE ? Colour::BLACK : Colour::WHITE;
     }
 
-    int ChessGame::current_player() const {
-        return current_player_index_;
+    Colour ChessGame::current_colour() const {
+        return current_colour_;
     }
 
-    std::string ChessGame::current_colour() const {
-        return colours_[current_player()];
+    Colour ChessGame::opponent_colour() const {
+        return current_colour_ == Colour::WHITE ? Colour::BLACK : Colour::WHITE;
     }
 
     void ChessGame::increment_input_request_count() {
@@ -36,17 +39,16 @@ namespace model {
         return should_stop_ || input_request_count_ > MAX_INPUT_REQUESTS;
     }
 
-    bool ChessGame::handle_game_move(const model::GameMove next_move) {
+    void ChessGame::execute_move(const model::GameMove next_move) {
 
-        if (next_move.is_move_valid(board_)) {
+        auto [start, destination] = next_move.coordinates();
+        const auto piece = board_.get_field(start);
+        board_.clear_field(start);
+        board_.set_field(destination, piece);
+    };
 
-            next_move.execute_move(board_);
-            history_.push_back(next_move);
-            switch_to_next_player();
-
-            return true;
-        }
-        return false;
+    void ChessGame::save_to_history(const model::GameMove move) {
+        history_.push_back(move);
     }
 
 } // namespace model

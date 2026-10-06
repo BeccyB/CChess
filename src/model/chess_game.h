@@ -1,5 +1,6 @@
 #pragma once
 
+#include "model/chess_piece.h"
 #include "model/game_move.h"
 #include "model/board.h"
 #include "view/cmd_input.h"
@@ -16,10 +17,10 @@ namespace model {
     class ChessGame {
 
       private:
-        int current_player_index_ = 0;
+        Colour current_colour_ = Colour::WHITE;
         int input_request_count_ = 0;
+
         bool should_stop_ = false;
-        std::array<std::string, 2> colours_ = {"white", "black"};
         std::vector<GameMove> history_ = {};
         Board board_;
 
@@ -29,11 +30,11 @@ namespace model {
 
         const Board &board() const;
 
-        void switch_to_next_player();
+        void switch_to_next_colour();
 
-        int current_player() const;
+        Colour current_colour() const;
 
-        std::string current_colour() const;
+        Colour opponent_colour() const;
 
         void increment_input_request_count();
 
@@ -41,6 +42,8 @@ namespace model {
 
         bool should_stop() const;
 
-        bool handle_game_move(const model::GameMove next_move);
+        void execute_move(const model::GameMove next_move);
+
+        void save_to_history(const model::GameMove move);
     };
 } // namespace model

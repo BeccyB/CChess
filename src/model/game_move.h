@@ -6,14 +6,14 @@
 
 namespace model {
 
+    enum class ChessMoveStatus {
+        NOT_OCCUPID, // there is not chess pice that can be selected
+        OCCUPID,     // the destination field is occupied
+        VALID,       // it is a valid selection
+    };
+
     class GameMove {
       public:
-        enum class ValidityStatus {
-            NOT_OCCUPID, // there is not chess pice that can be selected
-            OCCUPID,     // the destination field is occupied
-            VALID,       // it is a valid selection
-        };
-
         GameMove(const Coordinate start, const Coordinate destination)
             : start_(start), destination_(destination){};
 
@@ -26,14 +26,15 @@ namespace model {
         const std::pair<model::Coordinate, model::Coordinate>
         coordinates() const;
 
+        const Coordinate &start() const {
+            return start_;
+        }
+
+        const Coordinate &destination() const {
+            return destination_;
+        }
+
         bool is_equal() const;
-
-        GameMove::ValidityStatus
-        determine_game_move_validity(const model::Board &board) const;
-
-        bool is_move_valid(const model::Board &board) const;
-
-        void execute_move(Board &board) const;
 
       private:
         Coordinate start_;
